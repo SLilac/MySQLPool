@@ -3,7 +3,7 @@
 
 from connnection import Connection
     
-class MySQLSeesion:
+class Seesion:
     
     
     def __init__(self, connection):
