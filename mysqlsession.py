@@ -2,8 +2,6 @@
 #-*-coding:utf-8 -*-
 
 from connnection import Connection
-
-
     
 class MySQLSeesion:
     
