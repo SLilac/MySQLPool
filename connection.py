@@ -254,7 +254,7 @@ class MySQLSyncPool:
                     max_shared, timetout,conn_kwargs, threadlocal):
             
             self.threadlocal = threadlocal
-            self._condition = Condition()
+            
             
         
         
@@ -262,7 +262,7 @@ class MySQLSyncPool:
             pass
         
         def new_connection(self):
-            
+            pass
             
             
             
