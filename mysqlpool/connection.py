@@ -14,12 +14,7 @@ import MySQLdb
 import MySQLdb.constants
 import MySQLdb.converters
 import MySQLdb.cursors
-
-
-
 import time
-
-
 
 __version__ = "0.1"
 __author__ = "Thomas Huang"
@@ -60,8 +55,6 @@ class Connection:
         self._closed = False
         self._used = 0
     
-      
-        
     def __del__(self):
         self.close()
         

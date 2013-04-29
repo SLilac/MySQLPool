@@ -4,8 +4,6 @@
 from connnection import Connection
     
 class Seesion:
-    
-    
     def __init__(self, connection):
         
         self._sql_stmt_list = []
@@ -14,7 +12,6 @@ class Seesion:
         self._sql_stmt_list.append((querry, params))
     def add_all(self, stmt_trans):
         self._sql_stmt_list.extend(stmt_trans)
-           
     
     def commit(self):
         
@@ -27,7 +24,6 @@ class Seesion:
             self.conn.rollback()
         conn.commit()
         cur.close()
-
         
 def sessionmaker(connection):
     return MySQLSeesion(connection)

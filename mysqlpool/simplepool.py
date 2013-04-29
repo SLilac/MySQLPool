@@ -35,9 +35,6 @@ class SimpleConnection:
     def __del__(self):
         self.close()
         
-        
-        
-        
 class EasyPool:
     
     def __init__(self, conn_class = Connection, 
@@ -62,7 +59,6 @@ class EasyPool:
         self.pid = os.getpid()
         self.conn_class = conn_class
         self.conn_kwargs = conn_kwargs
-        
     
     def _checkpid(self):
         if self.pid != os.getpid():
@@ -180,8 +176,6 @@ class MySQLSyncPool:
         # If it has changed, then disconnect and re-instantiate.
         self.disconnect()
         self.reinstance()
-        
-   
     
     def new_connection(self):
         self._lock.acquire()
