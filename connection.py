@@ -248,4 +248,33 @@ class MySQLSyncPool:
                       conn_class=self.conn_class,
                       queue_class=self.queue_class, **self.conn_kwargs)
     
-    
+    class MySQLCherryPool:
+        
+        def __init_(self,conn_class, max_conns, 
+                    max_shared, timetout,conn_kwargs, threadlocal):
+            
+            self.threadlocal = threadlocal
+            self._condition = Condition()
+            
+        
+        
+        def get_connection(self, shareable = True):
+            pass
+        
+        def new_connection(self):
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        
