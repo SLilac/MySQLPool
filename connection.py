@@ -18,18 +18,27 @@ from Queue import LifoQueue
 import time
 
 from threading import Condition, Semaphore
-
+import threading.local
 class Connection:
     """MySQL Connection
     """
-    def __init__(self, **kwargs):
+    def __init__(self, threadlocals = False, **kwargs):
         """
         @Args:
             kwargs.keys ->[host, db, user, passwd, use_unicode, charset,...]
         @Return:
         """
+        if threadlocals:
+            self.__local = threading.local()
+        self.init(**kwargs)
+        
+    def init(self, **kwargs):
         self._db = None
-        self._db_settings = kwargs
+        self._conn_kwargs = {
+            'charset': 'utf8',
+            'use_unicode': True,
+        } 
+        self._conn_kwargs.update(kwargs)
         self.max_idle_sec = 25200
         self._last_use_sec = time.time()
         self._lock = Semaphore()
@@ -61,6 +70,9 @@ class Connection:
         
     def rollback(self):
         self._db.rollback()
+        
+    def begin(self):
+        pass
         
     def _ensure_connected(self):
         if self._db is None or (time.time() - self._last_use_sec > self.max_idle_sec):
@@ -135,11 +147,6 @@ class MySQLPool:
             conn.disconnect()
         for conn in self._in_use_conns:
             conn.disconnect()
-    
-
-
-    
-
 
             
 class MySQLSyncPool:    
@@ -219,7 +226,7 @@ class MySQLSyncPool:
     def release(self, connection):
         """Releases the connection back to the pool."""
         self._checkpid()
-
+        
         # Put the connection back into the pool.
         try:
             self.pool.put_nowait(connection)
@@ -234,15 +241,12 @@ class MySQLSyncPool:
             except Exception:
                         pass  
         self._conns = []
-        
-            
+           
     def reinstance(self):
- 
         """
         Reinstatiate this instance within a new process with a new connection
         pool set.
         """
-        
         self.__init__(max_conns=self.max_conns,
                       timeout=self.timeout,
                       conn_class=self.conn_class,
@@ -254,10 +258,7 @@ class MySQLSyncPool:
                     max_shared, timetout,conn_kwargs, threadlocal):
             
             self.threadlocal = threadlocal
-            
-            
-        
-        
+
         def get_connection(self, shareable = True):
             pass
         
