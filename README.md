@@ -1,4 +1,8 @@
 MySQLPool
 ======
 
-MySQL Pool
+Python MySQL Pool
+
+
+================
+
