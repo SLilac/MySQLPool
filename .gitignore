@@ -1,0 +1,6 @@
+*~
+*.psd
+*.pyc
+.project
+.pydevproject
+.settings/
