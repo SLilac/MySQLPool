@@ -1,4 +1,3 @@
-
 #-*-coding:utf-8 -*-
 
 from connnection import Connection
@@ -15,14 +14,14 @@ class Seesion:
     
     def commit(self):
         
-        cur = conn.cursor()
+        cur = self.conn.cursor()
         try:
             for stmt, params in self._sql_stmt_list:
                 cur.execute(stmt, params)    
         except MySQLdb.Error,e:
             print e[0],e[1]
             self.conn.rollback()
-        conn.commit()
+        self.conn.commit()
         cur.close()
         
 def sessionmaker(connection):
